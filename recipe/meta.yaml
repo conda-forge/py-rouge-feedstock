@@ -5,25 +5,27 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/p/py-rouge/py-rouge-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/p/py-rouge/py-rouge-{{ version }}.tar.gz
   sha256: b6caf2f031c45f699a9481c8962b8c33688165a3f2a22e1bfbaede8e073d6bb0
 
 build:
   noarch: python
-  number: 0
+  number: 1
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
     - pip
-    - python >=3.6
+    - python {{ python_min }}
   run:
-    - python >=3.6
+    - python >={{ python_min }}
     # - bsddb3
     - nltk
     - setuptools
 
 test:
+  requires:
+    - python {{ python_min }}
   imports:
     - rouge
   # # tests aren't packaged, and github has no tags to pull from, see Diego999/py-rouge#16
